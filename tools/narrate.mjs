@@ -49,8 +49,7 @@ async function narrate(scriptPath, outDir) {
         languageCode: MODEL.includes("multilingual_v2") ? undefined : "ko",
         outputFormat: "mp3_44100_128",
         // 앞뒤 장면을 알려주면 장면 사이 억양이 자연스럽게 이어짐
-        previousText: script.scenes[i - 1]?.text,
-        nextText: script.scenes[i + 1]?.text,
+        ...(MODEL === "eleven_v3" ? {} : { previousText: script.scenes[i - 1]?.text, nextText: script.scenes[i + 1]?.text }),
       });
       await pipeline(Readable.fromWeb(audio), createWriteStream(file));
       console.log(`생성: ${file}`);
