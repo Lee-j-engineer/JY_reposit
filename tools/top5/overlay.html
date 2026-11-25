@@ -1,0 +1,50 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:K;src:url(../vid/nk400.ttf);font-weight:400}
+@font-face{font-family:K;src:url(../vid/nk700.ttf);font-weight:700}
+@font-face{font-family:K;src:url(../vid/nk900.ttf);font-weight:900}
+*{margin:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:transparent;font-family:K;color:#fff}
+.o{position:absolute;opacity:0;text-shadow:0 4px 30px rgba(0,0,0,.9)}
+.or{color:#ff9a3c}.mut{color:#a9bcdc}
+.lab{position:absolute;transform:translate(-50%,-115%);text-align:center;white-space:nowrap;opacity:0}
+.lab .r{display:inline-block;background:#ff8a2a;color:#111;font-weight:900;font-size:30px;border-radius:10px;padding:2px 14px}
+.lab .n{font-size:34px;font-weight:900;text-shadow:0 3px 12px #000;margin-top:4px}
+.lab .p{font-size:30px;font-weight:700;color:#ffd2a6;text-shadow:0 3px 12px #000}
+#top{position:absolute;left:0;right:0;top:150px;text-align:center}
+#sub{position:absolute;left:60px;right:60px;bottom:330px;text-align:center;font-size:48px;font-weight:700;line-height:1.35}
+#sub span{background:rgba(0,0,0,.62);padding:10px 24px;border-radius:14px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+#foot{position:absolute;left:40px;right:40px;bottom:200px;font-size:22px;color:#a9bcdc;text-align:center;line-height:1.5}
+#brand{position:absolute;left:0;right:0;top:70px;text-align:center;font-size:30px;font-weight:900;color:#cfd9ec;letter-spacing:2px}
+</style></head><body>
+<div id=brand>데이터<span class=or>부동산</span></div>
+<div id=labs></div>
+<div class=o id=hook style="left:0;right:0;top:330px;text-align:center"><div style="font-size:64px;font-weight:900;line-height:1.3">대한민국에서<br>가장 비싼 집</div><div style="font-size:150px;font-weight:900" class=or>TOP 5</div><div class=mut style="font-size:32px;margin-top:10px">2026 공동주택 공시가격 기준</div></div>
+<div class=o id=rk style="left:0;right:0;top:200px;text-align:center"><div id=rkn style="font-size:96px;font-weight:900"></div><div id=rkname style="font-size:64px;font-weight:900"></div><div id=rkp style="font-size:100px;font-weight:900" class=or></div><div id=rkx class=mut style="font-size:36px;font-weight:700;margin-top:6px"></div></div>
+<div class=o id=out style="left:0;right:0;top:220px;text-align:center"><div style="font-size:60px;font-weight:900;line-height:1.35">TOP 5 중 <span class=or>3곳</span>이 청담동</div><div style="display:inline-block;text-align:left;margin-top:30px;font-size:40px;font-weight:700;line-height:1.7;background:rgba(5,12,28,.75);padding:24px 40px;border-radius:20px"><div><span class=or>1</span>&nbsp; 에테르노청담 <span class=mut style="font-size:34px">325.7억</span></div><div><span class=or>2</span>&nbsp; 나인원한남 <span class=mut style="font-size:34px">242.8억</span></div><div><span class=or>3</span>&nbsp; PH129 <span class=mut style="font-size:34px">232.3억</span></div><div><span class=or>4</span>&nbsp; 워너청담 <span class=mut style="font-size:34px">224.8억</span></div><div><span class=or>5</span>&nbsp; 아크로서울포레스트 <span class=mut style="font-size:34px">207.1억</span></div></div></div>
+<div id=sub><span id=subt></span></div>
+<div id=foot>자료: 국토교통부 2026년 공동주택 공시가격(안), 언론 보도 · 공시가격은 시세와 다름<br>구 경계 © OpenStreetMap 기여자 · 위치는 동 단위 개략 · 3D 연출</div>
+<script>
+const M=__M__,CO=__C__;
+const T=[["아크로서울포레스트",5,"207억 1천만 원","t2_rank5","성동구 성수동"],["워너청담",4,"224억 8천만 원","t3_rank4","강남구 청담동 · 올해 첫 진입"],["PH129",3,"232억 3천만 원","t4_rank3","청담동 · 2021~24년 4년 연속 1위"],["나인원한남",2,"242억 8천만 원","t5_rank2","용산구 한남동 · 1년 새 +79.8억"],["에테르노청담",1,"325억 7천만 원","t6_rank1","청담동 · 1년 새 +125.1억"]];
+const C=(v,a=0,b=1)=>Math.max(a,Math.min(b,v)),E=t=>1-Math.pow(1-C(t),3);
+const st=id=>M.scenes.find(s=>s.id===id).start,en=id=>{const s=M.scenes.find(s=>s.id===id);return s.start+s.duration};
+const fade=(t,a,b,f=.35)=>C((t-a)/f)*C((b-t)/f);const $=id=>document.getElementById(id);
+const L={};T.forEach(([n,r,p])=>{const d=document.createElement('div');d.className='lab';d.innerHTML=`<div class=r>${r}위</div><div class=n>${n}</div><div class=p>${p}</div>`;$('labs').appendChild(d);L[n]=d});
+window.TOTAL=M.total+1.2;
+window.render=t=>{
+ const fr=CO.frames[Math.min(CO.frames.length-1,Math.round(t*CO.fps))];
+ let cur=null;T.forEach(x=>{if(t>=st(x[3])&&t<en(x[3]))cur=x});
+ T.forEach(([n,r,p,sid])=>{const [x,y,z,g]=fr[n];const d=L[n];d.style.left=x*1080+'px';d.style.top=y*1920+'px';
+  const show=t>st(sid)+1.0&&z>0&&x>-.1&&x<1.1;const near=cur&&cur[0]===n;
+  d.style.opacity=0;d.style.transform=`translate(-50%,-115%) scale(${near?1.1:.85})`});
+ $('hook').style.opacity=fade(t,.2,st('t2_rank5')-.2);
+ const rk=$('rk');if(cur){const s=st(cur[3]),k=E((t-s-.6)/.6);rk.style.opacity=fade(t,s+.2,en(cur[3])-.1);
+  $('rkn').innerHTML=`<span class=or>${cur[1]}</span>위`;$('rkname').textContent=cur[0];
+  const num=parseFloat(cur[2]);$('rkp').textContent=k<1?Math.round(num*k)+'억':cur[2].replace(' 원','');$('rkx').textContent=cur[4];}else rk.style.opacity=0;
+ $('out').style.opacity=fade(t,st('t7_outro')+.3,TOTAL+1);
+ const sc=M.scenes.find(s=>t>=s.start&&t<s.start+s.duration);let tx='';
+ if(sc){const parts=sc.text.split(/(?<=[.?,])\s+/).reduce((a,p)=>{if(a.length&&a[a.length-1].length+p.length<20)a[a.length-1]+=' '+p;else a.push(p);return a},[]);
+  const tot=parts.reduce((x,p)=>x+p.length,0);let acc=0;const u=(t-sc.start)/sc.duration*tot;tx=parts.find(p=>(acc+=p.length)>=u)||parts.at(-1)}
+ $('subt').textContent=tx;$('sub').style.opacity=tx?1:0;};
+window.ready=true;
+</script></body></html>
