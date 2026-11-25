@@ -1,0 +1,25 @@
+{
+  "name": "jy_reposit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "narrate": "NODE_USE_ENV_PROXY=1 NODE_EXTRA_CA_CERTS=/root/.ccr/ca-bundle.crt node tools/narrate.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lee-j-engineer/JY_reposit.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lee-j-engineer/JY_reposit/issues"
+  },
+  "homepage": "https://github.com/Lee-j-engineer/JY_reposit#readme",
+  "dependencies": {
+    "@elevenlabs/elevenlabs-js": "^2.80.0"
+  },
+  "type": "module"
+}
